@@ -39,9 +39,15 @@ export default class ImageFetcher {
         {
             // read image
             console.log(asset);
+            if(Device.brand === "Apple" && asset.mediaSubtypes.includes("livePhoto")) continue;
+
             const info:MediaLibrary.AssetInfo = asset;
             
-            const base64 = await FileSystem.readAsStringAsync(asset.uri, {encoding:'base64'});
+            const localUri = (await MediaLibrary.getAssetInfoAsync(asset)).localUri;
+            console.log(localUri);
+
+            const base64 = await FileSystem.readAsStringAsync(localUri, {encoding:'base64'});
+            // (await MediaLibrary.getAssetInfoAsync(asset)).localUri???
 
              // upload to image server
             const form = new FormData();
