@@ -41,12 +41,10 @@ export default class ImageFetcher {
             console.log(asset);
             if(Device.brand === "Apple" && asset.mediaSubtypes.includes("livePhoto")) continue;
 
-            const info:MediaLibrary.AssetInfo = asset;
-            
-            const localUri = (await MediaLibrary.getAssetInfoAsync(asset)).localUri;
-            console.log(localUri);
+            const info:MediaLibrary.AssetInfo = await MediaLibrary.getAssetInfoAsync(asset);
+            console.log(info.localUri);
 
-            const base64 = await FileSystem.readAsStringAsync(localUri, {encoding:'base64'});
+            const base64 = await FileSystem.readAsStringAsync(info.localUri, {encoding:'base64'});
             // (await MediaLibrary.getAssetInfoAsync(asset)).localUri???
 
              // upload to image server

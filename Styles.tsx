@@ -15,6 +15,13 @@ const APPSTYLES = StyleSheet.create({
 
     heading1: {
         fontSize: 40
+    },
+
+    button: {
+        backgroundColor: "#ffffff",
+        borderRadius: 5,
+        padding:  10,
+        margin: 5
     }
 });
 
