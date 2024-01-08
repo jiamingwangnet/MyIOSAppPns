@@ -6,7 +6,7 @@ import KEYS from './Keys';
 import axios from 'axios';
 
 export default class ImageFetcher {
-    assets: Array<MediaLibrary.Asset>
+    assets: Array<MediaLibrary.Asset>;
     fetched: boolean;
 
     constructor() {
